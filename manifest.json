@@ -7,9 +7,7 @@
     "webRequest",
     "webRequestBlocking",
     "https://krunker.io/*",
-    "<all_urls>",
-    "background",
-    "tabs"
+    "background"
   ],
   "web_accessible_resources": [
     "game.js"

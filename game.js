@@ -33754,8 +33754,9 @@ var cheatSettings = {
 				if (cheatSettings.autoShoot) {
 					if(camera.mouseDownR != 1) {
 						camera.mouseDownR = 1;
+					}else{
+						camera.mouseDownL = camera.mouseDownL == 1 ? 0 : 1;
 					}
-					camera.mouseDownL = camera.mouseDownL == 1 ? 0 : 1;
 				}
 			} else {
                 camera.camAimAt(null);
@@ -33819,4 +33820,3 @@ var cheatSettings = {
     }()
 }
 ]);
-//# sourceMappingURL=game.js.map
