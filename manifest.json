@@ -1,0 +1,20 @@
+{
+  "name": "krunker.io aimbot",
+  "version": "0.9.5",
+  "manifest_version": 2,
+  "description": "https://github.com/Reptillo/Krunker-hack",
+  "permissions": [
+    "webRequest",
+    "webRequestBlocking",
+    "https://krunker.io/*",
+    "<all_urls>",
+    "background",
+    "tabs"
+  ],
+  "web_accessible_resources": [
+    "game.js"
+  ],
+  "background": {
+    "scripts": ["init.js"]
+  }
+}
