@@ -1,6 +1,7 @@
 var cheatSettings = {
 	aimInitialized : false,
 	aimbot: true,
+	autoShoot: true,
 	espName: true,
 	noRecoil: true,
 	infiniteAmmo: true
@@ -29790,8 +29791,9 @@ var cheatSettings = {
                                 h.level && (i = document.getElementById("pInfoR" + h.sid)) && (i.style.fontSize = 32 * u + "px",
                                 i.style.marginRight = 10 * u + "px")
                             }
-                        } else
+                        } else {
                             i.style.display = "none"
+						}
                 }
         }
         ,
@@ -31193,6 +31195,7 @@ var cheatSettings = {
         this.object = new e.Object3D,
         this.object.add(this.pitchObject);
         var h = Math.PI / 2;
+		
         s.addEventListener("mousemove", function(e) {
             if (a.enabled) {
                 e.preventDefault();
@@ -33741,14 +33744,30 @@ var cheatSettings = {
                                 closest = r
                             }
                         }
-            if (closest && (camera.mouseDownR || camera.keys[camera.aimKey])) {
+						
+            if (closest) { //&& (camera.mouseDownR || camera.keys[camera.aimKey])) {
                 camera.camAimAt(closest.x, 
 					closest.y + constants.playerHeight - constants.headScale / 2 - constants.crouchDst * closest.crouchVal, 
 					closest.z, 
 					closest.x2 - closest.x1 - localPlayer.xVel, closest.y2 - closest.y1 - localPlayer.yVel, closest.z2 - closest.z1 - localPlayer.zVel);
+					
+				if (cheatSettings.autoShoot) {
+					if(camera.mouseDownR != 1) {
+						camera.mouseDownR = 1;
+					}
+					camera.mouseDownL = camera.mouseDownL == 1 ? 0 : 1;
+				}
 			} else {
                 camera.camAimAt(null);
+				
+				if (cheatSettings.autoShoot) {
+					camera.mouseDownL = 0;
+					if(camera.mouseDownR != 0) {
+						camera.mouseDownR = 0;
+					}
+				}
 			}
+			
             if (cheatSettings.noRecoil) {
                 inputs[3] = ((camera.pitchObject.rotation.x - localPlayer["recoilAnimY"] * constants["recoilMlt"]) % Math.PI2).round(3);
                 localPlayer.recoilAnimYOld = localPlayer["recoilAnimY"];
@@ -33763,7 +33782,6 @@ var cheatSettings = {
             }
         }
         )(),
-		
         M.rotateCam(0, h.recoilAnimY * r.recoilMlt, 0),
         x.updateCrosshair(Math.max(.05 * window.innerHeight, h.spread * U), h.aimVal * (h.weapon.melee || h.reloadTimer > 0 ? 0 : 1)),
         E.singlePlayer || function(t) {
